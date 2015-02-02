@@ -256,18 +256,8 @@
            	$output = $oTemplate->compile($tpl_path, $tpl_file);
 
 
+			$skinx = Context::get('skin');
 
-
-		$skinx = Context::get('skin');
-		
-
-
-
-
-
-		//$this->module_skin_style = $this->module_info->star_skin_.$current_module_info->default_style;
-		
-			//return '<hr>$oDocument : <br>'.print_r($oDocument,true).'<hr>$module_info : <br>'.print_r($module_info,true).'<hr>$args : <br>'.print_r($args,true).'<hr>$current_module_info<br>'.print_r($current_module_info,true).'<hr>star_rating_config : <br>'.print_r($star_rating_config,true).'<hr>this->module_skin_style : '.print_r($this->module_skin_style,true).'<hr>this->module_skin_style_document_view : '.print_r($this->module_skin_style_document_view,true).'<hr>this->document_srl : '.print_r($this->document_srl,true).'<hr>args->document_srl : '.print_r($args->document_srl,true).'<hr>'.$output;	
 			return $output;
 		}
 
@@ -303,7 +293,7 @@
 		    $args->document_srl = $document_srl;
 		    $output = executeQuery('widgets.star_rating.getStarRatedAverage', $args);
 
-			// DB가 안정화 되면 아래 내용은 필요 없습니다.
+			/*// DB가 안정화 되면 아래 내용은 필요 없습니다.
 			if(!$output->data->rate_average || $output->data->rate_average < 1) {
 
 				$db_info = Context::getDBInfo();
@@ -324,36 +314,13 @@
 					// 평균점수는 정수로 저장되던 버그를 해결하기 위해
 					// mysql에서 rate_average 필드값 형식을 float으로 변경했습니다.
 					// insert와 update를 동시에 해줍니다.
-					// $args->rateval = sprintf("%01.2f", $staraverage); //$staraverage;
+					// $args->rateval = sprintf("%01.2f", $staraverage);
+					// $staraverage;
 					$output = executeQuery('widgets.star_rating.updateStarRatingAverage', $args);
 					$output = executeQuery('widgets.star_rating.insertStarRatingAverage', $args);
 	
-	
-					/*$myFile = "testFile_average2.txt";
-					$fh = fopen($myFile, 'w') or die("can't open file");
-					$stringData = $db_info->master_db['db_table_prefix'].'//'.$args->rateval.'//'.$staraverage.'//'.print_r($output,true);
-					fwrite($fh, $stringData);
-					fclose($fh);*/
-				
-				// 신형 평균 점시 업데이트
-				// 정수로 평균점이 업데이트되는 문제로 위의 코드를 사용함
-				//$args->rateval = sprintf("%01.2f", $staraverage); //$staraverage;
-				//$output = executeQuery('widgets.star_rating.updateStarRatingAverage', $args);	
-		
-					/*// 평균 점수 업데이트
-					$outputz = executeQuery('widgets.star_rating.updateStarRatingAverage', $args);
-					$outputz = executeQuery('widgets.star_rating.insertStarRatingAverage', $args);*/
 				}
-			}
-
-			/*$myFile = "testFile_update_average.txt";
-			$fh = fopen($myFile, 'w') or die("can't open file");
-			$stringData = $document_srl.'//'.print_r($output->data->rate_average,true).'//'.print_r($output,true);
-			fwrite($fh, $stringData);
-			fclose($fh)
-
-			*/
-;
+			}*/
 
 		    return $output->data->rate_average;//$output->data['rate_average'];
 		 }
