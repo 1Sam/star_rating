@@ -1,0 +1,213 @@
+/*	XE 위젯 최상위 부모 div .xe-widget-wrapper
+	[ 별 1개 스킨 ] ribonicon 등 과의 라인 조화를 위해 추가 */
+.xe-widget-wrapper {
+	display: inline-block;
+	vertical-align: super;
+}
+
+.star_rating_svg #outline {
+	width : auto;
+	padding: 7px 0;
+	margin: 0 0 5px;
+	border-width: 0 0 0 0.2em;
+	border-style: solid;
+	/* border-color: #E6E6E6; */
+	border-color: rgba(255, 136, 136, 0.5);
+	background: linear-gradient(90deg, #FFF, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
+	/* border-image: linear-gradient(90deg, #ddd, transparent, transparent) 14% stretch; */
+	font-family: Trebuchet MS, 나눔고딕;
+}
+.star_rating_svg .ment1 {
+	float: left;
+	margin-right:4px;
+	width: 30px;
+	text-align: right;
+}
+.star_rating_svg .first_s {
+	height: 20px;
+	line-height: 18px;
+}
+.star_rating_svg .s_average, .star_rating_svg .s_persons {
+	margin-left: 5px;
+}
+.star_rating_svg .s_average {
+	font-style: italic;
+}
+.star_rating_svg .second_s {
+	visibility: visible;
+	clear: both;
+	height: 20px;
+	line-height: 18px;
+	margin-top: 2px;
+}
+.star_rating_svg .ment2 {
+	float: left;
+	margin-right: 4px;
+	width: 30px;
+	line-height: 18px;
+	text-align: right;
+}
+.star_rating_svg .ment2 i.fa-check {
+	margin-left: -12px;
+}
+.star_rating_svg .final {
+	float: left;
+	margin-right: 4px;
+	width: 148px;
+}
+/* .final i {
+	color: #B5063A;
+	letter-spacing: 2px;
+}
+.final i,
+.rating i {
+	vertical-align: middle;
+	line-height: 18px;
+	font-size: 15px;
+} */
+.star_rating_svg .rating {
+	cursor: pointer;
+	float: left;
+	margin-right: 4px;
+	width: 148px;
+	line-height: 18px;
+}
+/* .rating i {
+	letter-spacing: 2.0px;
+	color: gray;
+}
+.rating i:hover {
+	background: linear-gradient(45deg, #F0C900 50%, #F00 90%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+} */
+.star_rating_svg .strimg {
+	font-size: 11px;
+}
+.star_rating_svg .strimg strong span {
+	font-size: 14px;
+}
+.star_rating_svg .rateit {
+	float: left;
+	line-height: 20px;
+	font-family: 나눔고딕, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif;
+	font-weight: bold;
+	font-size: 12px;
+	text-shadow: 0 0 0 #7C7C7C;
+}
+.star_rating_svg .already {
+	clear: both;
+	visibility: hidden;
+	padding-left: 35px;
+	font-size: 12px;
+	color: red;
+}
+.star_rating_svg .star, .star_rating_svg .star a {
+	color: #E9D801;
+}
+/* div.rating div.hover a,
+div.rating div a:hover {
+	background-position: 0 -32px;
+} */
+
+/*----------- 별점 1개 스타일*/
+/* .star_rate_music {
+top: -2px;
+} */
+.star_rating_svg .star-rate {
+	overflow: hidden;
+	position: relative;
+	display: inline-block;
+	line-height: 2em;
+	vertical-align: middle;
+	width: 40px;
+	height: 40px;
+	right: -2px;
+	margin-left: -5px;
+}
+.star_rating_svg .star-icon {
+	/*-webkit-filter: drop-shadow( 1px 1px 2px #555);*/
+	position: absolute;
+	top: -2px;
+	left: 0; /* IE11을 위함 */
+}
+.star_rating_svg .star-result {
+	color: #555;
+	font-weight: bold;
+	font-style: italic;
+	letter-spacing: -0.7px;
+	text-shadow: 1px 1px 3px #FBB0FF;
+	font-size: 14px;
+	top: 1px;
+	right: 0px;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	font-family: Trebuchet MS;
+	line-height: 40px;
+}
+
+/*----------- 별점 10개 스타일*/
+.star_rating_svg .star-icon-10 {
+	width: 18px;
+	height: 18px;
+	/*margin: 0 -4.9px 0 -1.1px;*/
+	margin: 0 -3.3px 0 0;
+	vertical-align: text-bottom;
+}
+.star_rating_svg .star-icon-10-result {
+	fill: #B5063A;
+}
+.star_rating_svg .star-icon-10-add {
+	fill: #808080;
+}
+.star_rating_svg .star-icon-10-user {
+	width: 18px;
+	height: 18px;
+	vertical-align: top;
+	fill: #FFF;
+	margin: 1px -3px 0 -3px;
+}
+.star_rating_svg .star-icon-10-users {
+	width: 30px;
+	height: 30px;
+	vertical-align: top;
+	fill: #FFF;
+	margin: -5px -3px 0 -3px;
+}
+.star_rating_svg svg path {
+/* filter: url(#drop-shadow); */
+}
+.star_rating_svg star-icon {
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	fill: #ffe000;
+}
+.star_rating_svg .svg-circle {
+	fill: rgba(255, 255, 255, 0.5);
+}
+.star_rating_svg .svg-circle-dashed-4 {
+	fill: rgba(0, 204, 255, 0.7);
+}
+.star_rating_svg .svg-circle-votes {
+	fill: rgba(255, 138, 138, 0.7);
+}
+.star_rating_svg .svg-star-full-1 {
+	fill: #ffe000;
+}
+.star_rating_svg .svg-defs-icon-40 {
+	display: none;
+}
+.star_rating_svg .svg-defs-filters-pixel-0 {
+	display: block;
+	width: 0;
+	height: 0;
+}
+/* .filter-drop-shadow {
+        filter: url(#drop-shadow);
+} */
+.star_rating_svg rating svg:hover {
+	fill: #F0C900;
+}
