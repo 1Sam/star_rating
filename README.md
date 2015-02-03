@@ -1,4 +1,4 @@
-# star_rating
+# xe/widgets/star_rating/
 별점 위젯
 
 별점위젯 설정 모듈 : <a href="https://github.com/1Sam/star_rating_config">star_rating_config</a> 
