@@ -82,27 +82,27 @@ function callback_add_SVG(result){
 
 	if(result['message'] == "success"){
 
-				var star_html_code = get_star_html_SVG(result['star_max'],result['converted_average'],result['document_srl']);
+		var star_html_code = get_star_html_SVG(result['star_max'],result['converted_average'],result['document_srl']);
 		//alert(star_html_code);
 		jQuery("#final_"+result['document_srl']).html(star_html_code);
 		jQuery(adder).appendTo("#rated_users_"+result['document_srl']); // 평점 준사람 출력
-				jQuery("#ment_"+result['document_srl']).html('<svg class="star-icon-10" viewBox="0 0 40 40"><use xlink:href="#icon-user-full" filter="url(#drop-shadow)"></use></svg> :');
+		jQuery("#ment_"+result['document_srl']).html('<svg class="star-icon-10" viewBox="0 0 40 40"><use xlink:href="#icon-user-full" filter="url(#drop-shadow)"></use></svg> :');
 		jQuery("#s_average_"+result['document_srl']).html(result['average']); //부가 점수
 		jQuery("#s_persons_"+result['document_srl']).html(result['persons']);
-				jQuery('#res').css({opacity: 0.0, visibility: "visible"});
+		jQuery('#res').css({opacity: 0.0, visibility: "visible"});
 
-				var already = ("감사합니다.");
+		var already = ("감사합니다.");
 
- 				jQuery("#second_s_"+result['document_srl']).fadeOut(99);
-				jQuery("#already_"+result['document_srl']).css({visibility: "visible"});
-				jQuery("#already_"+result['document_srl']).fadeIn(100);
-				jQuery("#already_"+result['document_srl']).html(already);
-				jQuery("#already_"+result['document_srl']).fadeOut(8000);
+ 		jQuery("#second_s_"+result['document_srl']).fadeOut(99);
+		jQuery("#already_"+result['document_srl']).css({visibility: "visible"});
+		jQuery("#already_"+result['document_srl']).fadeIn(100);
+		jQuery("#already_"+result['document_srl']).html(already);
+		jQuery("#already_"+result['document_srl']).fadeOut(8000);
 				
 	}else if(result['message'] == 'already'){
-				var already = ("이미 별점을 주셨습니다.");
+		var already = ("이미 별점을 주셨습니다.");
 		
-				jQuery('#res').css({opacity: 0.0, visibility: "visible"});
+		jQuery('#res').css({opacity: 0.0, visibility: "visible"});
 		jQuery("#already_"+result['document_srl']).css({visibility: "visible"});
 		jQuery("#already_"+result['document_srl']).fadeIn(100);
 		jQuery("#already_"+result['document_srl']).html(already);
@@ -125,21 +125,22 @@ function callback_remove_SVG(result){
 
 		jQuery("#final_"+result['document_srl']).html(star_html_code);
 
-				jQuery("#ment_"+result['document_srl']).html('<svg class="star-icon-10" viewBox="0 0 40 40"><use xlink:href="#icon-star-checked-full" filter="url(#drop-shadow)"></use></svg> :');
+		jQuery("#ment_"+result['document_srl']).html('<svg class="star-icon-10" viewBox="0 0 40 40"><use xlink:href="#icon-star-checked-full" filter="url(#drop-shadow)"></use></svg> :');
 
 		jQuery("#s_average_"+result['document_srl']).html(result['average']); //부가정보
 		jQuery("#s_persons_"+result['document_srl']).html(result['persons']);
-				var already = ("별점을 삭제 했습니다.");
-				//jQuery("#"+user_div).html('');
-				jQuery("#"+user_div).css({display: "none"});
+
+		var already = ("별점을 삭제 했습니다.");
+		//jQuery("#"+user_div).html('');
+		jQuery("#"+user_div).css({display: "none"});
 		jQuery("#second_s_"+result['document_srl']).fadeOut(99);
-				jQuery("#already_"+document_srl).css({visibility: "visible"});
+		jQuery("#already_"+document_srl).css({visibility: "visible"});
 		jQuery("#already_"+result['document_srl']).fadeIn(100);
 		jQuery("#already_"+result['document_srl']).html(already);
 		jQuery("#already_"+result['document_srl']).fadeOut(8000);
 
 	}else if(result['message'] == 'already'){
-				var already = ("이미 별점을 주셨습니다.");
+		var already = ("이미 별점을 주셨습니다.");
 
 		jQuery("#already_"+result['document_srl']).css({visibility: "visible"});
 		jQuery("#already_"+result['document_srl']).fadeIn(100);
@@ -156,21 +157,21 @@ function get_star_html_SVG(star_max, star_percent_average, document_srl){
 	// star_max = 10;
 	var html_code ='<div class="final" id="final_'+document_srl+'">';
 	for(i=1;i<=star_max;i++) {
-	   	if(star_percent_average>=1)	{
+		if(star_percent_average>=1)	{
 			//꽉 찬 별
 			html_code += '<svg class="star-icon-10 star-icon-10-result" viewBox="0 0 40 40"><use xlink:href="#icon-star-full" filter="url(#drop-shadow)"></use></svg>';
-	        star_percent_average-=1;
-        } else if(star_percent_average>=0.5) {
+			star_percent_average-=1;
+		} else if(star_percent_average>=0.5) {
 			//반쪽 별
 			html_code += '<svg class="star-icon-10 star-icon-10-result" viewBox="0 0 40 40"><use xlink:href="#icon-star-half-o" filter="url(#drop-shadow)"></use></svg>';
 			star_percent_average-=1;
-       	} else if (star_percent_average<0.5 && star_percent_average>0) {
+		} else if (star_percent_average<0.5 && star_percent_average>0) {
 			//빈 별
-            html_code += '<i class="fa fa-star-o"></i>';
-   	   	    star_percent_average-=1;
-	    } else if(star_percent_average<=0) {
+			html_code += '<i class="fa fa-star-o"></i>';
+			star_percent_average-=1;
+		} else if(star_percent_average<=0) {
 			//빈 별
-	        html_code += '<svg class="star-icon-10 star-icon-10-result" viewBox="0 0 40 40"><use xlink:href="#icon-star-o" filter="url(#drop-shadow)"></use></svg>';
+			html_code += '<svg class="star-icon-10 star-icon-10-result" viewBox="0 0 40 40"><use xlink:href="#icon-star-o" filter="url(#drop-shadow)"></use></svg>';
 		}
 	}
 	html_code +='<div>';
