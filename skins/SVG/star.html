@@ -37,7 +37,7 @@ jQuery(document).ready(function(){
 
 
 
-<span class="star-rate" data-toggle="tooltip" data-placement="left" data-container="body" data-html="true" title="<span class='btn-default btn-xs'><strong>{count($widget_info->star_rating_list)}명</strong></span> 참여<br/><!--@foreach($widget_info->star_rating_list as $list)-->&nbsp;<span class='<!--@if($logged_info->member_srl == $list->member_srl)-->label-primary<!--@else-->label-success<!--@end--> btn-xs'><em><strong>{$list->rateval}</strong></em></span><!--@end-->">
+<span class="star-rate" data-toggle="popover" data-placement="left" data-container="body" data-html="true" title="<span class='btn-default btn-xs'><strong>{count($widget_info->star_rating_list)}명</strong></span> 참여<br/><!--@foreach($widget_info->star_rating_list as $list)-->&nbsp;<span class='<!--@if($logged_info->member_srl == $list->member_srl)-->label-primary<!--@else-->label-success<!--@end--> btn-xs'><em><strong>{$list->rateval}</strong></em></span><!--@end-->">
 	<!--@if($widget_info->is_starrated && $is_logged)-->
 		<svg class="star-voted">
 			<use class="svg-circle" xlink:href="#icon-circle" filter="url(#drop-shadow)"></use>
@@ -177,3 +177,9 @@ jQuery(document).ready(function(){
 <!--@end-->
 
 </div>
+
+<script>
+jQuery(function () {
+  jQuery('[data-toggle="popover"]').popover()
+})
+</script>
