@@ -1,8 +1,8 @@
 jQuery(document).ready(function(){
 	// 위젯 최상위 부모 div에 적용된 overflow: hidden 속성 제거
-	// [ 별 1개 스킨 ] ribonicon 등 과의 조화를 위해 display: inline-block 추가
+	// [ 별 1개 스킨 ] ribonicon 등 과의 조화를 위해 display: inline-block 추가했으나, XE가 버젼 업 되면서 최상위 div에 xe-widget-wrapper class가 생겼으므로 css에 적용
 	//jQuery( ".star-rate" ).parent( "div" ).parent( "div" ).parent( "div" ).css({overflow: "", display: "inline-block", verticalAlign: "super"});
-	// [ 별 10개 스킨 ]
+	// [ 별 10개 스킨 ] 별점 준 유저 표시 버튼 하단 잘림으로 인해 넣었으나, 현재 잘리지 않으므로 disable
 	//jQuery( "#outline" ).parent( "div" ).parent( "div" ).css({overflow: ""});
 	
 	// 툴팁
