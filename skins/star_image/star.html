@@ -1,0 +1,133 @@
+<!--
+스킨에 star.js 는 필수 요소입니다.
+star.js의 get_star_html_code() 함수와 star.html의 코드는 모양이 잘 맞아야 합니다.
+
+스킨의 디자인 요소를 알맞게 수정하세요.
+id와 class 명은 유지하기 바라며, star_rating.css를 변경해 보세요.
+
+글 열람시에 아래에 리스트로 나타나는 글목록의 경우,
+마우스 오버로 점수를 부여하려할 때에 열람중인 글과 글목록의 별점부여(마우스오버)가 중복되기에
+열람 중인 글에 마우스 오버효과가 적용됩니다.
+-->
+
+<load target="star.js" />
+<load target="../../tpl/js/star.js" /> <!-- 위젯의 공통 함수 -->
+<!--@if($colorset == "black" || $colorset == "white")-->
+    <!--%import("css/widget.css")-->
+<!--@else-->
+    <!--%import("css/rating.css")-->
+<!--@end-->
+
+<!-- jQuery 개별 로드 하지 않음 -->
+<!--script type='text/javascript' src="./common/js/jquery.min.js"></script-->
+
+<!--별 개수-->
+<!--@if($widget_info->star_max=="1")-->
+<div id="outline_star_image_one">
+    <img src="images/star_big.png" cond="$widget_info->is_starrated" />
+    <img src="images/star_blue.png" cond="!$widget_info->is_starrated" />
+    <span>{$widget_info->average}</span>
+</div>
+
+<!--@elseif($widget_info->star_max >"1")-->
+
+<div id="outline_star_image<!--@if($colorset=="black")--> black<!--@end-->">
+	<!-- 첫라인-->
+	<!-- 평점 별 표시 부분 -->
+	<div class='first_s' id="first_s_{$widget_info->document_srl}">
+    
+    	<!-- star.js 에서 리턴된 값이 반영될 요소들 -->
+		<div cond="$widget_info->display_rated_info == 'Y'" class='ment1' id='ment_{$widget_info->document_srl}'>Average Rating:</div>
+        
+    	<div class='final' id='final_{$widget_info->document_srl}'>
+			<!-- 평점 별 표시 -->
+			<!--//별의 게이지가 차는 것은 백분률 평균점수인 $widget_info->rateaverage 사용-->
+
+			<!--@for($i=1;$i<=$widget_info->star_max;$i++)-->
+		      	<!--@if($widget_info->percent_average>=1)-->
+                	<!--가득 찬 별-->
+					<img src="images/star_full.gif">
+		            {@$widget_info->percent_average-=1;}
+	    	    <!--@elseif($widget_info->percent_average>=0.5)-->
+                	<!--반쪽 별-->
+					<img src="images/star_half.gif">
+					{@$widget_info->percent_average-=1;}
+	        	<!--@elseif ($widget_info->percent_average<0.5 && $widget_info->percent_average>0)-->
+                	<!--빈 별 -->
+	    	        <img src="images/star_blank.gif">
+    	    	    {@$widget_info->percent_average-=1;}
+		        <!--@elseif($widget_info->percent_average<=0)-->
+                	<!--빈 별-->
+		            <img src="images/star_blank.gif">
+		        <!--@end-->
+			<!--@end-->
+		</div>
+
+        	<!-- 평점 숫자 표시 및 평가 참여자 수 -->
+		<span cond="$widget_info->display_rated_info == 'Y'" class='strimg'>
+
+			<!--@if(count($widget_info->star_rating_list) > 0)-->
+				<!--// 평균값과 참여자 수 정보-->
+				<strong><span class='btn-primary btn-xs'><i class='fa fa-users'><span class='s_average' id='s_average_{$widget_info->document_srl}'>{$widget_info->rateaverage}</span>/{$widget_info->full_point}</i> </span></strong><span class='s_persons' id='s_persons_{$widget_info->document_srl}'>{count($widget_info->star_rating_list)}</span>명 참여
+				
+			<!--@else-->
+				<!--//첫 투표자-->
+				<strong><span class='btn-primary btn-xs'><i class='fa fa-users'><span class='s_average' id='s_average_{$widget_info->document_srl}'>&nbsp;</span></i></span></strong><span class='s_persons' id='s_persons_{$widget_info->document_srl}'>{count($widget_info->star_rating_list)}</span>명 참여
+			<!--@end-->
+
+		</span>
+    </div>
+
+	<!-- 둘째 라인 -->
+	<!--// </div> star_rating.class.php에 들어간 부분-->
+    <!-- 평점 UI 부분 -->
+    <div  cond="$widget_info->able_rate == 'Y'" class='second_s' id='second_s_{$widget_info->document_srl}'>
+		<div class='ment2' id='ment'>Rate this page:</div>
+   		<div class="rating">
+			<!--@for($i=1;$i<$widget_info->star_max+1;$i++)-->
+            	<img src="images/star_blank.gif" onClick="addstar({$widget_info->member_srl},{$widget_info->document_srl},{$widget_info->full_point},{$widget_info->star_max},'{$widget_info->update_order}',{round(10/$widget_info->star_max*$i)}, 'star_image')" id="{round(10/$widget_info->star_max*$i)}_{$widget_info->document_srl}">
+			<!--@end-->
+            
+		</div>
+
+		<!-- 별 마우스 오버시에 표시되는 짧은 평가 멘트 -->
+		<div class="rateit" id="rateit_{$widget_info->document_srl}"></div>
+	</div>
+        
+	<div class="already" id='already_{$widget_info->document_srl}'></div>
+
+	<!-- 셋째 라인 -->
+	<!-- 투표자 리스트 -->
+	<div cond="$widget_info->display_rated_list == 'Y'" class="rated_users" id="rated_users_{$widget_info->document_srl}">
+    	<!--@foreach($widget_info->star_rating_list as $list)-->
+			<!-- 회원 닉네임 구하기 -->
+			{@$obj->member_srl = $list->member_srl}
+			<!-- output의 구조가 좀 복잡하게 돌아옴 -->
+			{@$output = executeQuery('widgets.star_rating.getNickName', $obj);}
+
+		   	<!--@if($grant->manager)-->
+				<span id="rate_{$list->member_srl}_{$widget_info->document_srl}" class="btn btn-success btn-xs" data-toggle="tooltip" data-placement="top" title="{$output->data->nick_name} (★{$list->rateval}) 삭제" onclick="removestar({$list->member_srl},{$widget_info->document_srl},{$widget_info->full_point},{$widget_info->star_max},'{$widget_info->update_order}', 'star_image')">
+	    	       	{$output->data->nick_name}&nbsp;({$list->rateval})
+	            </span>
+		   	<!--@elseif($logged_info->member_srl == $list->member_srl)-->
+			   	<!--
+	    		// doCallModuleAction은 xe.min.js 에 정의된 ayax 함수임
+				// widgets의 controller action 도 실행됨
+				// conf/wdigets.xml 과 star_rating.controller.php 과 queries/updateStarRatedAverage.xml 의 3요소가 필요함
+				-->
+		    	<span id="rate_{$list->member_srl}_{$widget_info->document_srl}" class="btn btn-success btn-xs" data-toggle="tooltip" data-placement="top" title="내 (★{$list->rateval}) 삭제" onclick="removestar({$list->member_srl},{$widget_info->document_srl})">
+	               	{$output->data->nick_name}&nbsp;({$list->rateval})
+    	        </span>
+
+        	<!--@elseif($list->member_srl > 0)-->
+	           	<span class="label label-info">{$output->data->nick_name}&nbsp;({$list->rateval})</span>
+	        <!--@endif-->&nbsp;
+                
+	   <!--@end-->
+	</div>
+</div>
+
+
+<!--@else-->
+[오류]
+<!--@end-->
