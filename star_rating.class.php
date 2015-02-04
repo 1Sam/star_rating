@@ -154,10 +154,11 @@
 				$average = $this->getStarRatedAverage($widget_info->document_srl);
 				
 				$widget_info->star_rating_list = $this->getStarRatedList(1,$widget_info->document_srl); //별 1개 - 참여자 표시 위함
-				if($average < 1) {
-					if($args->display_zero == "false" || $args->display_zero == "N") return; // 평점이 0이면 무시
-				}
-				$widget_info->average = round($average, $args->decimal_point); //일쌤 number_format
+
+				// 평점이 0일때, 0점별의 표시 여부 확인
+				if($average < 1 && $args->display_zero != "Y") return;
+
+				$widget_info->average = number_format($average,$args->decimal_point);//round($average, $args->decimal_point); //일쌤 number_format
 				
 				//투표여부
 				$widget_info->is_starrated = $this->getStarRatedIs($args,$widget_info->document_srl);
@@ -167,19 +168,10 @@
 				// db->documents->rateval 에 저장되어 있음
 				// 해당 글의 별점 리스트 호출
 				$widget_info->star_rating_list = $this->getStarRatedList(1,$widget_info->document_srl); //1점이상으로 매겨진 글의 점수 
-				if(count($widget_info->star_rating_list)) {
-					$value = NULL;
-					$i = 0;
-					foreach($widget_info->star_rating_list as $idx => $rate_item) {
-						$value += $rate_item->rateval;
-						$i += 1;
-					}
-					$widget_info->rateaverage = $value/$i; //round($value/$i); // 평균값 반올림
-				} else {
-					$widget_info->rateaverage = 0;
-				}
-
-				$widget_info->percent_average = $widget_info->rateaverage * $args->star_max / 10;
+				
+				$average = $this->getStarRatedAverage($widget_info->document_srl);
+				$widget_info->rateaverage = number_format($average, $args->decimal_point);//round($average, $args->decimal_point);
+				$widget_info->percent_average = number_format($average * $args->star_max / 10, $args->decimal_point);//round($average * $args->star_max / 10,$args->decimal_point);
 		
 				// 10개의 별, 5개의 별을 계산해서 넘김
 				
@@ -321,8 +313,8 @@
 	
 				}
 			}*/
-
-		    return $output->data->rate_average;//$output->data['rate_average'];
+			
+			return $output->data->rate_average ? $output->data->rate_average : 0;//$output->data['rate_average'];
 		 }
 
 		// 별점을 주었는지를 bool로 리턴
