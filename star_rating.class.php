@@ -284,36 +284,12 @@
 		function getStarRatedAverage($document_srl) {
 		    $args->document_srl = $document_srl;
 		    $output = executeQuery('widgets.star_rating.getStarRatedAverage', $args);
-
-			/*// DB가 안정화 되면 아래 내용은 필요 없습니다.
-			if(!$output->data->rate_average || $output->data->rate_average < 1) {
-
-				$db_info = Context::getDBInfo();
-				$oDB=&DB::getInstance(); //xe의 DB 호출
+			/*// 평균점수 기록을 초기화 했을 때 사용하세요.
+			$oStar_rating_configControll =  getController('star_rating_config');
 			
-				$tablename = $db_info->master_db['db_table_prefix'].'star_rating_log'; //개별
-				$tablename2 = $db_info->master_db['db_table_prefix'].'star_rating'; // 평균
-	
-				// 평균을 바로 구함
-				$rateval_average = $oDB->_query("select avg(rateval) as average from $tablename where document_srl='$document_srl' group by document_srl");
-				$outputx = $oDB->_fetch($rateval_average);
-	
-	
-				if($outputx->average != 0) {
-					$args->document_srl = $document_srl;
-					$args->rateval = round($outputx->average,2);
-	
-					// 평균점수는 정수로 저장되던 버그를 해결하기 위해
-					// mysql에서 rate_average 필드값 형식을 float으로 변경했습니다.
-					// insert와 update를 동시에 해줍니다.
-					// $args->rateval = sprintf("%01.2f", $staraverage);
-					// $staraverage;
-					$output = executeQuery('widgets.star_rating.updateStarRatingAverage', $args);
-					$output = executeQuery('widgets.star_rating.insertStarRatingAverage', $args);
-	
-				}
-			}*/
-			
+			$average =$oStar_rating_configControll->get_star_average($document_srl);
+			$oStar_rating_configControll->update_star_average($document_srl, $average);*/
+
 			return $output->data->rate_average ? $output->data->rate_average : 0;//$output->data['rate_average'];
 		 }
 
