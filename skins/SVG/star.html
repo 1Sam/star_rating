@@ -1,5 +1,4 @@
-<!--© sushi http://kmdb.luatic.co.kr-->
-<div class="star_rating_svg">
+<div class="star_rating_SVG">
 <!--
 스킨에 star.js 는 필수 요소입니다.
 star.js의 get_star_html_code() 함수와 star.html의 코드는 모양이 잘 맞아야 합니다.
@@ -9,11 +8,13 @@ id와 class 명은 유지하기 바라며, star_rating.css를 변경해 보세�
 
 글 열람시에 아래에 리스트로 나타나는 글목록의 경우,
 마우스 오버로 점수를 부여하려할 때에 열람중인 글과 글목록의 별점부여(마우스오버)가 중복되기에
-열람 중인 글에 마우스 오버효과가 적용됩니다.
+열람 중인 글에 마우스 오버효과가 적용됩니다.-->
+<!--중복회피용 변수 $is_overlaped 를 잘 활용해야합니다.
 -->
 
 <include target="_svgdefs.xml" />
-<load target="star.js" />
+
+<load target="star.js" /> <!-- 현재 스킨에 포함된 개별 함수 -->
 <load target="../../tpl/js/star.js" /> <!-- 위젯의 공통 함수 -->
 
 <!--@if($colorset == "black" || $colorset == "white")-->
@@ -26,8 +27,9 @@ id와 class 명은 유지하기 바라며, star_rating.css를 변경해 보세�
 <!--script type="text/javascript" src="./common/js/jquery.min.js"></script-->
 
 	<!--별 개수-->
-<!--@if($widget_info->star_max=="1")-->
-<!-- <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<!--별 1개-->
+<!--@if($widget_info->star_max==1)-->
+<!--// <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript">
 jQuery(document).ready(function(){
     jQuery(".star-rate a").popover();
@@ -37,7 +39,7 @@ jQuery(document).ready(function(){
 
 
 
-<span class="star-rate" data-toggle="popover" data-placement="left" data-container="body" data-html="true" title="<span class='btn-default btn-xs'><strong>{count($widget_info->star_rating_list)}명</strong></span> 참여<br/><!--@foreach($widget_info->star_rating_list as $list)-->&nbsp;<span class='<!--@if($logged_info->member_srl == $list->member_srl)-->label-primary<!--@else-->label-success<!--@end--> btn-xs'><em><strong>{$list->rateval}</strong></em></span><!--@end-->">
+<span class="star-rate" data-toggle="tooltip" data-placement="left" data-container="body" data-html="true" title="<span class='btn-default btn-xs'><strong>{count($widget_info->star_rating_list)}명</strong></span> 참여<br/><!--@foreach($widget_info->star_rating_list as $list)-->&nbsp;<span class='<!--@if($logged_info->member_srl == $list->member_srl)-->label-primary<!--@else-->label-success<!--@end--> btn-xs'><em><strong>{$list->rateval}</strong></em></span><!--@end-->" data-content="<img class='zbxe_widget_output' widget='star_rating' document_srl='{$document->document_srl}' />">
 	<!--@if($widget_info->is_starrated && $is_logged)-->
 		<svg class="star-voted">
 			<use class="svg-circle" xlink:href="#icon-circle" filter="url(#drop-shadow)"></use>
@@ -50,8 +52,9 @@ jQuery(document).ready(function(){
 		<span class="star-result">{$widget_info->average}</span>
 </span>
 
-<!--@elseif($widget_info->star_max >"1")-->
-<div id="outline<!--@if($colorset=="black")--> black<!--@end-->">
+<!--별 1개이상-->
+<!--@elseif($widget_info->star_max >1)-->
+<div id="outline_SVG<!--@if($colorset=="black")--> black<!--@end-->">
 	<!-- 첫째 라인-->
 	<!-- 평점 별 표시 부분 -->
 	<div class="first_s" id="first_s_{$widget_info->document_srl}">
@@ -107,7 +110,7 @@ jQuery(document).ready(function(){
 	</div>
 
 	<!-- 둘째 라인 -->
-	<!--// /div> star_rating.class.php에 들어간 부분-->
+	<!--// </div> star_rating.class.php에 들어간 부분-->
 	<!-- 평점 UI 부분 -->
 	<div cond="$widget_info->able_rate == 'Y'" class="second_s" id="second_s_{$widget_info->document_srl}">
 		<div class="ment2" id="ment" cond="$widget_info->display_rated_info == 'Y'">
@@ -116,14 +119,20 @@ jQuery(document).ready(function(){
 			</svg> :
 		</div>
 		<div class="rating">
+            <!-- 중요 :
+            .widgets/star_rating/tpl/js/star.js 의 addstar() 함수와 관련입니다.
+            addstar() 함수로 건네주는 마지막 변수의 "SVG" 문자는 현재 스킨의 폴더명입니다. 꼭 포함해야합니다."
+            exec_xml() 함수의 call_back 함수인 addstar_SVG()를 가리킵니다.
+            이러한 방식은 본문보기에서 하단의 리스트로 표시된 글이 섞인 상태에서, 별점 표현의 자바스크립트 함수가 뒤섞이지 않게 합니다.
+            -->
 		<!--@for($i=1;$i<$widget_info->star_max+1;$i++)-->
 <svg class="star-icon-10 star-icon-10-add" viewBox="0 0 40 40">
-				<use xlink:href="#icon-star-full" filter="url('#drop-shadow')" onClick="addstar({$widget_info->member_srl},{$widget_info->document_srl},{$widget_info->full_point},{$widget_info->star_max},'{$widget_info->update_order}',{round(10/$widget_info->star_max*$i)}, 'SVG')" id="{round(10/$widget_info->star_max*$i)}_{$widget_info->document_srl}"></use>
+				<use xlink:href="#icon-star-full" filter="url('#drop-shadow')" onClick="addstar({$widget_info->document_srl},{$widget_info->member_srl},{$widget_info->full_point},{$widget_info->star_max},'{$widget_info->update_order}',{round(10/$widget_info->star_max*$i)}, 'SVG')" id="{round(10/$widget_info->star_max*$i)}_{$widget_info->document_srl}"></use>
 		</svg><!--@end-->
 		</div>
 
 		<!-- 별 마우스 오버시에 표시되는 짧은 평가 멘트 -->
-		<div class="rateit" id="rateit_{$widget_info->document_srl}"></div>
+		<div cond="$widget_info->display_rated_info=='Y'" class="rateit" id="rateit_{$widget_info->document_srl}"></div>
 	</div>
 
 	<div class="already" id="already_{$widget_info->document_srl}"></div>
@@ -141,7 +150,7 @@ jQuery(document).ready(function(){
 		{@$output = executeQuery("widgets.star_rating.getNickName", $obj);}
 
 		<!--@if($grant->manager)-->
-		<span id="rate_{$list->member_srl}_{$widget_info->document_srl}" class="btn btn-success btn-xs" data-toggle="tooltip" data-placement="top" data-title="{$output->data->nick_name} ★{$list->rateval} 삭제" onclick="removestar({$list->member_srl},{$widget_info->document_srl},{$widget_info->full_point},{$widget_info->star_max},'{$widget_info->update_order}', 'SVG')">
+		<span id="rate_{$list->member_srl}_{$widget_info->document_srl}" class="btn btn-success btn-xs" data-toggle="tooltip" data-placement="top" data-title="{$output->data->nick_name} ★{$list->rateval} 삭제" onclick="removestar({$widget_info->document_srl},{$list->member_srl},{$widget_info->full_point},{$widget_info->star_max},'{$widget_info->update_order}', 'SVG')">
 			{$output->data->nick_name}
 			<!--@if($list->member_srl < 0)-->
 			{$list->member_srl}
@@ -150,12 +159,13 @@ jQuery(document).ready(function(){
 		</span>
 
 		<!--@elseif($logged_info->member_srl == $list->member_srl)-->
+
 		<!--
 			// doCallModuleAction은 xe.min.js 에 정의된 ajax 함수임
 			// widgets의 controller action 도 실행됨
 			// conf/wdigets.xml 과 star_rating.controller.php 과 queries/updateStarRatedAverage.xml 의 3요소가 필요함
 		-->
-		<span id="rate_{$list->member_srl}_{$widget_info->document_srl}" class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="top" data-title="내 ★{$list->rateval} 삭제" onclick="removestar({$list->member_srl},{$widget_info->document_srl},{$widget_info->full_point},{$widget_info->star_max},'{$widget_info->update_order}', 'SVG')">
+		<span id="rate_{$list->member_srl}_{$widget_info->document_srl}" class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="top" data-title="내 ★{$list->rateval} 삭제" onclick="removestar({$widget_info->document_srl},{$list->member_srl},{$widget_info->full_point},{$widget_info->star_max},'{$widget_info->update_order}', 'SVG')">
 			{$output->data->nick_name}&nbsp;<i class="fa fa-star"></i><i>{$list->rateval}</i>
 		</span>&nbsp;
 
@@ -178,8 +188,10 @@ jQuery(document).ready(function(){
 
 </div>
 
-<script>
+<!-- popover 보류 임시 주석 처리
+<script type="text/javascript">
 jQuery(function () {
-  jQuery('[data-toggle="popover"]').popover()
+	jQuery('.star-rate').popover()
 })
 </script>
+-->
