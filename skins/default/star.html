@@ -1,3 +1,4 @@
+<div class="star_rating_default">
 <!--
 스킨에 star.js 는 필수 요소입니다.
 star.js의 get_star_html_code() 함수와 star.html의 코드는 모양이 잘 맞아야 합니다.
@@ -7,8 +8,10 @@ id와 class 명은 유지하기 바라며, star_rating.css를 변경해 보세�
 
 글 열람시에 아래에 리스트로 나타나는 글목록의 경우,
 마우스 오버로 점수를 부여하려할 때에 열람중인 글과 글목록의 별점부여(마우스오버)가 중복되기에
-열람 중인 글에 마우스 오버효과가 적용됩니다.
+열람 중인 글에 마우스 오버효과가 적용됩니다.-->
+<!--중복회피용 변수 $is_overlaped 를 잘 활용해야합니다.
 -->
+
 
 <load target="star.js" /> <!-- 현재 스킨에 포함된 개별 함수 -->
 <load target="../../tpl/js/star.js" /> <!-- 위젯의 공통 함수 -->
@@ -84,7 +87,7 @@ id와 class 명은 유지하기 바라며, star_rating.css를 변경해 보세�
 	<!-- 둘째 라인 -->
 	<!--// </div> star_rating.class.php에 들어간 부분-->
     <!-- 평점 UI 부분 -->
-    <div  cond="$widget_info->able_rate == 'Y'" class="second_s" id="second_s_{$widget_info->document_srl}">
+    <div cond="$widget_info->able_rate == 'Y'" class="second_s" id="second_s_{$widget_info->document_srl}">
 		<div class="ment2" id="ment" cond="$widget_info->display_rated_info == 'Y'">Rate this page:</div>
    		<div class="rating">
             <!-- 중요 :
@@ -94,7 +97,7 @@ id와 class 명은 유지하기 바라며, star_rating.css를 변경해 보세�
             이러한 방식은 본문보기에서 하단의 리스트로 표시된 글이 섞인 상태에서, 별점 표현의 자바스크립트 함수가 뒤섞이지 않게 합니다.
             -->
 			<!--@for($i=1;$i<$widget_info->star_max+1;$i++)-->
-            	<i class="fa fa-star" onClick="addstar({$widget_info->member_srl},{$widget_info->document_srl},{$widget_info->full_point},{$widget_info->star_max},'{$widget_info->update_order}',{round(10/$widget_info->star_max*$i)}, 'default')" id="{round(10/$widget_info->star_max*$i)}_{$widget_info->document_srl}"></i>
+            	<i class="fa fa-star" onClick="addstar({$widget_info->document_srl},{$widget_info->member_srl},{$widget_info->full_point},{$widget_info->star_max},'{$widget_info->update_order}',{round(10/$widget_info->star_max*$i)}, 'default')" id="{round(10/$widget_info->star_max*$i)}_{$widget_info->document_srl}"></i>
 			<!--@end-->
             
 		</div>
@@ -116,7 +119,7 @@ id와 class 명은 유지하기 바라며, star_rating.css를 변경해 보세�
 			{@$output = executeQuery("widgets.star_rating.getNickName", $obj);}
 
 		   	<!--@if($grant->manager)-->
-				<span id="rate_{$list->member_srl}_{$widget_info->document_srl}" class="btn btn-success btn-xs" data-toggle="tooltip" data-placement="top" title="{$output->data->nick_name} (★{$list->rateval}) 삭제" onclick="removestar({$list->member_srl},{$widget_info->document_srl},{$widget_info->full_point},{$widget_info->star_max},'{$widget_info->update_order}', 'default')">
+				<span id="rate_{$list->member_srl}_{$widget_info->document_srl}" class="btn btn-success btn-xs" data-toggle="tooltip" data-placement="top" title="{$output->data->nick_name} (★{$list->rateval}) 삭제" onclick="removestar({$widget_info->document_srl},{$list->member_srl},{$widget_info->full_point},{$widget_info->star_max},'{$widget_info->update_order}', 'default')">
 	    	       	{$output->data->nick_name}&nbsp;({$list->rateval})
 	            </span>
 		   	<!--@elseif($logged_info->member_srl == $list->member_srl)-->
@@ -125,7 +128,7 @@ id와 class 명은 유지하기 바라며, star_rating.css를 변경해 보세�
 				// widgets의 controller action 도 실행됨
 				// conf/wdigets.xml 과 star_rating.controller.php 과 queries/updateStarRatedAverage.xml 의 3요소가 필요함
 				-->
-		    	<span id="rate_{$list->member_srl}_{$widget_info->document_srl}" class="btn btn-success btn-xs" data-toggle="tooltip" data-placement="top" title="내 (★{$list->rateval}) 삭제" onclick="removestar({$list->member_srl},{$widget_info->document_srl},{$widget_info->full_point},{$widget_info->star_max},'{$widget_info->update_order}', 'default')">
+		    	<span id="rate_{$list->member_srl}_{$widget_info->document_srl}" class="btn btn-success btn-xs" data-toggle="tooltip" data-placement="top" title="내 (★{$list->rateval}) 삭제" onclick="removestar({$widget_info->document_srl},{$list->member_srl},{$widget_info->full_point},{$widget_info->star_max},'{$widget_info->update_order}', 'default')">
 	               	{$output->data->nick_name}&nbsp;({$list->rateval})
     	        </span>
 
@@ -140,3 +143,4 @@ id와 class 명은 유지하기 바라며, star_rating.css를 변경해 보세�
 <!--@else-->
 [오류]
 <!--@end-->
+</div>
