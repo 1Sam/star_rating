@@ -72,14 +72,6 @@
 			} else { // 리스트로 나타나는 별
 				$this->module_skin_style = $this->module_info->star_skin_.$current_module_info->default_style;
 				$widget_info->document_srl = $args->document_srl;
-				
-				// 중복 회피를 위한 해결책입니다. 1과 2중에서 선택하세요.
-				// 1. 리스트에 해당글보기의 문서가 표시되지 않음
-				//if($is_overlaped == $widget_info->document_srl) return;
-				// 2. 투표 UI 표시만 하지 않도록 함
-				$args->able_rate = ($is_overlaped == $widget_info->document_srl) ? 'N' :$star_rating_config['star_able_rate_'.$this->module_skin_style];
-				
-				
 			}
 			
 			if(!$widget_info->document_srl) return;
@@ -142,6 +134,14 @@
 			$args->full_point = $star_rating_config['star_full_point_'.$this->module_skin_style];
 			// 중복회피용으로 위에서 정의함
 			//$args->able_rate = $star_rating_config['star_able_rate_'.$this->module_skin_style];
+			// 중복 회피를 위한 해결책입니다. 1과 2중에서 선택하세요.
+			// 1. 리스트에 해당글보기의 문서가 표시되지 않음
+			//if($is_overlaped == $widget_info->document_srl) return;
+			// 2. 투표 UI 표시만 하지 않도록 함
+			$args->able_rate = ($is_overlaped == $widget_info->document_srl) ? 'N' :$star_rating_config['star_able_rate_'.$this->module_skin_style];
+
+
+
 			$args->display_rated_list = $star_rating_config['star_display_rated_list_'.$this->module_skin_style];
 			$args->display_rated_info = $star_rating_config['star_display_rated_info_'.$this->module_skin_style];
 			$args->decimal_point = $star_rating_config['star_decimal_point_'.$this->module_skin_style];
