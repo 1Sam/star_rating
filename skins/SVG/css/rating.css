@@ -5,7 +5,7 @@
 	vertical-align: super;
 }
 
-.star_rating_svg #outline {
+.star_rating_SVG #outline {
 	width : auto;
 	padding: 7px 0;
 	margin: 0 0 5px;
@@ -17,40 +17,40 @@
 	/* border-image: linear-gradient(90deg, #ddd, transparent, transparent) 14% stretch; */
 	font-family: Trebuchet MS, 나눔고딕;
 }
-.star_rating_svg .ment1 {
+.star_rating_SVG .ment1 {
 	float: left;
 	margin-right:4px;
 	width: 30px;
 	text-align: right;
 }
-.star_rating_svg .first_s {
+.star_rating_SVG .first_s {
 	height: 20px;
 	line-height: 18px;
 }
-.star_rating_svg .s_average, .star_rating_svg .s_persons {
+.star_rating_SVG .s_average, .star_rating_SVG .s_persons {
 	margin-left: 5px;
 }
-.star_rating_svg .s_average {
+.star_rating_SVG .s_average {
 	font-style: italic;
 }
-.star_rating_svg .second_s {
+.star_rating_SVG .second_s {
 	visibility: visible;
 	clear: both;
 	height: 20px;
 	line-height: 18px;
 	margin-top: 2px;
 }
-.star_rating_svg .ment2 {
+.star_rating_SVG .ment2 {
 	float: left;
 	margin-right: 4px;
 	width: 30px;
 	line-height: 18px;
 	text-align: right;
 }
-.star_rating_svg .ment2 i.fa-check {
+.star_rating_SVG .ment2 i.fa-check {
 	margin-left: -12px;
 }
-.star_rating_svg .final {
+.star_rating_SVG .final {
 	float: left;
 	margin-right: 4px;
 	width: 148px;
@@ -65,7 +65,7 @@
 	line-height: 18px;
 	font-size: 15px;
 } */
-.star_rating_svg .rating {
+.star_rating_SVG .rating {
 	cursor: pointer;
 	float: left;
 	margin-right: 4px;
@@ -81,13 +81,13 @@
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 } */
-.star_rating_svg .strimg {
+.star_rating_SVG .strimg {
 	font-size: 11px;
 }
-.star_rating_svg .strimg strong span {
+.star_rating_SVG .strimg strong span {
 	font-size: 14px;
 }
-.star_rating_svg .rateit {
+.star_rating_SVG .rateit {
 	float: left;
 	line-height: 20px;
 	font-family: 나눔고딕, 'Segoe UI', 'DejaVu Sans', 'Trebuchet MS', Verdana, sans-serif;
@@ -95,14 +95,14 @@
 	font-size: 12px;
 	text-shadow: 0 0 0 #7C7C7C;
 }
-.star_rating_svg .already {
+.star_rating_SVG .already {
 	clear: both;
 	visibility: hidden;
 	padding-left: 35px;
 	font-size: 12px;
 	color: red;
 }
-.star_rating_svg .star, .star_rating_svg .star a {
+.star_rating_SVG .star, .star_rating_SVG .star a {
 	color: #E9D801;
 }
 /* div.rating div.hover a,
@@ -114,7 +114,7 @@ div.rating div a:hover {
 /* .star_rate_music {
 top: -2px;
 } */
-.star_rating_svg .star-rate {
+.star_rating_SVG .star-rate {
 	overflow: hidden;
 	position: relative;
 	display: inline-block;
@@ -125,13 +125,13 @@ top: -2px;
 	right: -2px;
 	margin-left: -5px;
 }
-.star_rating_svg .star-icon {
+.star_rating_SVG .star-icon {
 	/*-webkit-filter: drop-shadow( 1px 1px 2px #555);*/
 	position: absolute;
 	top: -2px;
 	left: 0; /* IE11을 위함 */
 }
-.star_rating_svg .star-result {
+.star_rating_SVG .star-result {
 	color: #555;
 	font-weight: bold;
 	font-style: italic;
@@ -149,58 +149,58 @@ top: -2px;
 }
 
 /*----------- 별점 10개 스타일*/
-.star_rating_svg .star-icon-10 {
+.star_rating_SVG .star-icon-10 {
 	width: 18px;
 	height: 18px;
 	/*margin: 0 -4.9px 0 -1.1px;*/
 	margin: 0 -3.3px 0 0;
 	vertical-align: text-bottom;
 }
-.star_rating_svg .star-icon-10-result {
+.star_rating_SVG .star-icon-10-result {
 	fill: #B5063A;
 }
-.star_rating_svg .star-icon-10-add {
+.star_rating_SVG .star-icon-10-add {
 	fill: #808080;
 }
-.star_rating_svg .star-icon-10-user {
+.star_rating_SVG .star-icon-10-user {
 	width: 18px;
 	height: 18px;
 	vertical-align: top;
 	fill: #FFF;
 	margin: 1px -3px 0 -3px;
 }
-.star_rating_svg .star-icon-10-users {
+.star_rating_SVG .star-icon-10-users {
 	width: 30px;
 	height: 30px;
 	vertical-align: top;
 	fill: #FFF;
 	margin: -5px -3px 0 -3px;
 }
-.star_rating_svg svg path {
+.star_rating_SVG svg path {
 /* filter: url(#drop-shadow); */
 }
-.star_rating_svg star-icon {
+.star_rating_SVG star-icon {
 	display: inline-block;
 	width: 40px;
 	height: 40px;
 	fill: #ffe000;
 }
-.star_rating_svg .svg-circle {
+.star_rating_SVG .svg-circle {
 	fill: rgba(255, 255, 255, 0.5);
 }
-.star_rating_svg .svg-circle-dashed-4 {
+.star_rating_SVG .svg-circle-dashed-4 {
 	fill: rgba(0, 204, 255, 0.7);
 }
-.star_rating_svg .svg-circle-votes {
+.star_rating_SVG .svg-circle-votes {
 	fill: rgba(255, 138, 138, 0.7);
 }
-.star_rating_svg .svg-star-full-1 {
+.star_rating_SVG .svg-star-full-1 {
 	fill: #ffe000;
 }
-.star_rating_svg .svg-defs-icon-40 {
+.star_rating_SVG .svg-defs-icon-40 {
 	display: none;
 }
-.star_rating_svg .svg-defs-filters-pixel-0 {
+.star_rating_SVG .svg-defs-filters-pixel-0 {
 	display: block;
 	width: 0;
 	height: 0;
@@ -208,6 +208,6 @@ top: -2px;
 /* .filter-drop-shadow {
         filter: url(#drop-shadow);
 } */
-.star_rating_svg rating svg:hover {
+.star_rating_SVG rating svg:hover {
 	fill: #F0C900;
 }
