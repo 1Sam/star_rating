@@ -262,6 +262,8 @@
 				$widget_info->widget_skin = $args->skin;
 				$widget_info->update_order = $args->update_order;
 				$widget_info->module_srls = explode(',',$args->module_srls);
+				//투표여부
+				$widget_info->is_starrated = $this->getStarRatedIs($args,$widget_info->document_srl); //NULL 또는 1
 			}
 
             // $widget_info 저장
