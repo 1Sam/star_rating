@@ -23,3 +23,8 @@ stdClass Object ( [document_srl] => 53707 [member_srl] => 4 [star_max] => 5 [sta
             이러한 방식은 본문보기에서 하단의 리스트로 표시된 글이 섞인 상태에서, 별점 표현의 자바스크립트 함수가 뒤섞이지 않게 합니다.
 
 &lt;i class="fa fa-star" onClick="addstar({$widget_info-&gt;member_srl},{$widget_info-&gt;document_srl},{$widget_info-&gt;full_point},{$widget_info-&gt;star_max},'{$widget_info-&gt;update_order}',{round(10/$widget_info-&gt;star_max*$i)}, '<span style="color: rgb(255, 255, 255); background-color: rgb(255, 0, 0);">default</span>')" id="{round(10/$widget_info-&gt;star_max*$i)}_{$widget_info-&gt;document_srl}"&gt;&lt;/i&gt;
+
+
+별점위젯을 게시판 스킨에 삽입하는 방법
+&lt;div .... loop="$document_list=&gt;$no,$document"&gt;<br />&nbsp;&nbsp; &lt;별점위젯/&gt;<br />&lt;/div&gt;
+ 
