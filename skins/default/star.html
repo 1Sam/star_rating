@@ -100,7 +100,7 @@ id와 class 명은 유지하기 바라며, star_rating.css를 변경해 보세�
 		</div>
 
 		<!-- 별 마우스 오버시에 표시되는 짧은 평가 멘트 -->
-		<div class="rateit" id="rateit_{$widget_info->document_srl}"></div>
+		<div cond="$widget_info->display_rated_info=='Y'" class="rateit" id="rateit_{$widget_info->document_srl}"></div>
 	</div>
         
 	<div class="already" id="already_{$widget_info->document_srl}"></div>
