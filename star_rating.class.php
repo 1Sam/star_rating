@@ -24,8 +24,17 @@
 		 
 		// 위젯 표현의 1차 실행 함수
 		function proc($args) {
-
 			$current_module_info = Context::get('current_module_info');
+			// 별점 설정 모듈에서 불러온 설정값
+			$oModuleModel = getModel('module');
+			$star_rating_config = $oModuleModel->getModulePartConfig('star_rating_config',$current_module_info->module_srl);
+			//설정값 재설정
+			$args->available = $star_rating_config['star_available_'.$this->module_skin_style];
+			//별점 사용 여부
+			if($args->available == 'N') return;
+
+
+
 
 			// 테스트 코드
 			//file_put_contents('somefile.txt', print_r($current_module_info, true));
@@ -35,20 +44,46 @@
 				return;
 			}*/
 							
-			$this->document_srl = Context::get('document_srl');
+			//$this->document_srl = Context::get('document_srl');
 			//$oDocumentModel = getModel('document');
 			//if(!$this->document_srl) $oDocument = $oDocumentModel->getDocument(0);
 			
 			//$args는 view_document일때, 본문 아래에 리스트가 같이 출력되면 아래 리스트의 $args값을 가져와 버리는 버그가 발생함. 따라서 위젯 코드 생성할 때 필히 document_srl="{$document->document_srl}"|cond="$document_srl!=$document->document_srl" 변수를 상황에 맞추어야 함. 리스트일 경우에만 사용해야함.
 			
 			// 해당 별위젯의 각 글번호 구하기
-			if($args->document_srl) { 
+			/*if($args->document_srl) { 
 				$widget_info->document_srl = $args->document_srl;
 			} elseif($this->document_srl) {
 				$widget_info->document_srl = $this->document_srl;
 			} else {
 				return;
+			}*/
+			/*$widget_info->document_srl = $args->document_srl | Context::get('document_srl');
+			if(!$widget_info->document_srl) return;*/
+
+			$document_srl = Context::get('document_srl');
+			$is_overlaped = Context::get('is_overlaped');
+			if($document_srl && !$is_overlaped) { //본문보기의 별과 리스트에 해당 글 **중복상태임
+				// 중복회피을 위해 중복 확인용 전역변수 추가
+				Context::set('is_overlaped', $document_srl);
+				$this->module_skin_style = 'view';
+				$widget_info->document_srl = $document_srl;
+			
+			} else { // 리스트로 나타나는 별
+				$this->module_skin_style = $this->module_info->star_skin_.$current_module_info->default_style;
+				$widget_info->document_srl = $args->document_srl;
+				
+				// 중복 회피를 위한 해결책입니다. 1과 2중에서 선택하세요.
+				// 1. 리스트에 해당글보기의 문서가 표시되지 않음
+				//if($is_overlaped == $widget_info->document_srl) return;
+				// 2. 투표 UI 표시만 하지 않도록 함
+				$args->able_rate = ($is_overlaped == $widget_info->document_srl) ? 'N' :$star_rating_config['star_able_rate_'.$this->module_skin_style];
+				
+				
 			}
+			
+			if(!$widget_info->document_srl) return;
+
 
 			// 오류가 생기면 그냥 무시, 문서번호값이 없다는 뜻임
 			// 게시판 리스트에서는 문서값을 위젯코드에 있는 document_srl 변수로 받아 오고
@@ -56,15 +91,12 @@
             //if($this->document_srl && $args->document_srl) continue;
 
 
-			// 별점 설정 모듈에서 불러온 설정값
-
-			// Get a list of mid
-			$oModuleModel = getModel('module');
 			/*$columnList = array('module_srl', 'mid', 'browser_title','module','skin');
 			$mid_list = $oModuleModel->getMidList(null, $columnList);
 			Context::set('mid_list', $mid_list);*/
 
-			$star_rating_config = $oModuleModel->getModulePartConfig('star_rating_config',$current_module_info->module_srl);
+
+
 			//Context::set('star_rating_config', $star_rating_config);
 			
 			// 게시판 보기 상태 구분 view, gallery, webzine, blog 등등
@@ -86,7 +118,7 @@
 				$widget_info->ccc = '처음';
 			}*/
 
-			if(!$args->document_srl){// && $listStyle) {
+			/*if(!$args->document_srl){// && $listStyle) {
 				// 전역변수 선언
 				// document_srl 을 'is_overlaped' 전역변수로 중복여부를 확인
 				if(Context::get('is_overlaped')) {
@@ -100,18 +132,16 @@
 
 			} else {
 				$this->module_skin_style = $this->module_info->star_skin_.$current_module_info->default_style;
-			}
+			}*/
 
-			//설정값 재설정
-			$args->available = $star_rating_config['star_available_'.$this->module_skin_style];
-			
-			//별점 사용 여부
-			if($args->available == 'N') return;
+
+
 			
 			$args->skin = $star_rating_config['star_skin_'.$this->module_skin_style];
 			$args->star_max = $star_rating_config['star_max_'.$this->module_skin_style];
 			$args->full_point = $star_rating_config['star_full_point_'.$this->module_skin_style];
-			$args->able_rate = $star_rating_config['star_able_rate_'.$this->module_skin_style];
+			// 중복회피용으로 위에서 정의함
+			//$args->able_rate = $star_rating_config['star_able_rate_'.$this->module_skin_style];
 			$args->display_rated_list = $star_rating_config['star_display_rated_list_'.$this->module_skin_style];
 			$args->display_rated_info = $star_rating_config['star_display_rated_info_'.$this->module_skin_style];
 			$args->decimal_point = $star_rating_config['star_decimal_point_'.$this->module_skin_style];
