@@ -28,10 +28,11 @@
 			// 별점 설정 모듈에서 불러온 설정값
 			$oModuleModel = getModel('module');
 			$star_rating_config = $oModuleModel->getModulePartConfig('star_rating_config',$current_module_info->module_srl);
-			//설정값 재설정
-			$args->available = $star_rating_config['star_available_'.$this->module_skin_style];
-			//별점 사용 여부
-			if($args->available == 'N') return;
+			
+			//$output = print_r($current_module_info,true).'//'.print_r($star_rating_config,true);
+			//return $output;
+
+
 
 
 
@@ -74,6 +75,11 @@
 				$widget_info->document_srl = $args->document_srl;
 			}
 			
+			//설정값 재설정
+			$args->available = $star_rating_config['star_available_'.$this->module_skin_style];
+			//별점 사용 여부
+			if($args->available == 'N') return;
+
 			if(!$widget_info->document_srl) return;
 
 
