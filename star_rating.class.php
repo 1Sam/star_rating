@@ -78,7 +78,7 @@
 			//설정값 재설정
 			$args->available = $star_rating_config['star_available_'.$this->module_skin_style];
 			//별점 사용 여부
-			if($args->available == 'N') return;
+			if($args->available != 'Y') return;
 
 			if(!$widget_info->document_srl) return;
 
