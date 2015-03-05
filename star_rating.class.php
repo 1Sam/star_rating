@@ -62,9 +62,11 @@
 			/*$widget_info->document_srl = $args->document_srl | Context::get('document_srl');
 			if(!$widget_info->document_srl) return;*/
 
+			
 			$document_srl = Context::get('document_srl');
 			$is_overlaped = Context::get('is_overlaped');
-			if($document_srl && !$is_overlaped) { //본문보기의 별과 리스트에 해당 글 **중복상태임
+			//if($document_srl && !$is_overlaped) { //본문보기의 별과 리스트에 해당 글 **중복상태임
+			if(!$args->document_srl && !$is_overlaped) { //본문보기의 별과 리스트에 해당 글 **중복상태임
 				// 중복회피을 위해 중복 확인용 전역변수 추가
 				Context::set('is_overlaped', $document_srl);
 				$this->module_skin_style = 'view';
@@ -145,6 +147,7 @@
 			//if($is_overlaped == $widget_info->document_srl) return;
 			// 2. 투표 UI 표시만 하지 않도록 함
 			$args->able_rate = $args->able_rate ?: (($is_overlaped == $widget_info->document_srl) ? 'N' :$star_rating_config['star_able_rate_'.$this->module_skin_style]);
+			//$args->able_rate = $args->able_rate ?: $star_rating_config['star_able_rate_'.$this->module_skin_style];
 
 
 
