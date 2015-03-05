@@ -135,25 +135,25 @@
 
 
 			
-			$args->skin = $star_rating_config['star_skin_'.$this->module_skin_style];
-			$args->star_max = $star_rating_config['star_max_'.$this->module_skin_style];
-			$args->full_point = $star_rating_config['star_full_point_'.$this->module_skin_style];
+			$args->skin = $args->skin ?: $star_rating_config['star_skin_'.$this->module_skin_style];
+			$args->star_max = $args->star_max ?: $star_rating_config['star_max_'.$this->module_skin_style];
+			$args->full_point = $args->full_point ?: $star_rating_config['star_full_point_'.$this->module_skin_style];
 			// 중복회피용으로 위에서 정의함
 			//$args->able_rate = $star_rating_config['star_able_rate_'.$this->module_skin_style];
 			// 중복 회피를 위한 해결책입니다. 1과 2중에서 선택하세요.
 			// 1. 리스트에 해당글보기의 문서가 표시되지 않음
 			//if($is_overlaped == $widget_info->document_srl) return;
 			// 2. 투표 UI 표시만 하지 않도록 함
-			$args->able_rate = ($is_overlaped == $widget_info->document_srl) ? 'N' :$star_rating_config['star_able_rate_'.$this->module_skin_style];
+			$args->able_rate = $args->able_rate ?: (($is_overlaped == $widget_info->document_srl) ? 'N' :$star_rating_config['star_able_rate_'.$this->module_skin_style]);
 
 
 
-			$args->display_rated_list = $star_rating_config['star_display_rated_list_'.$this->module_skin_style];
-			$args->display_rated_info = $star_rating_config['star_display_rated_info_'.$this->module_skin_style];
-			$args->decimal_point = $star_rating_config['star_decimal_point_'.$this->module_skin_style];
-			$args->display_zero = $star_rating_config['star_display_zero_'.$this->module_skin_style];
-			$args->able_anonymous = $star_rating_config['star_able_anonymous_'.$this->module_skin_style];
-			$args->update_order = $star_rating_config['star_last_update_'.$this->module_skin_style];
+			$args->display_rated_list = $args->display_rated_list ?: $star_rating_config['star_display_rated_list_'.$this->module_skin_style];
+			$args->display_rated_info = $args->display_rated_info ?: $star_rating_config['star_display_rated_info_'.$this->module_skin_style];
+			$args->decimal_point = $args->decimal_point ?: $star_rating_config['star_decimal_point_'.$this->module_skin_style];
+			$args->display_zero = $args->display_zero ?: $star_rating_config['star_display_zero_'.$this->module_skin_style];
+			$args->able_anonymous = $args->able_anonymous ?: $star_rating_config['star_able_anonymous_'.$this->module_skin_style];
+			$args->update_order = $args->update_order ?: $star_rating_config['star_last_update_'.$this->module_skin_style];
 			
 
 
